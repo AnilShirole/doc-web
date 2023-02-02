@@ -20,4 +20,8 @@ export class DocumentService {
     public async getAllDocuments(): Promise<DocumentDomainModel[]> {
         return await this.documentHttpService.getAllDocuments();
     }
+
+    public async uploadDocuments(): Promise<DocumentDomainModel[]> {
+        return await this.documentHttpService.uploadDocuments();
+    }
 }

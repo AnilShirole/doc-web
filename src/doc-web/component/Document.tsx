@@ -20,7 +20,7 @@ export const Document = (props: DocumentProps): JSX.Element =>{
      }, []);
 
     return (<div>
-        <DocumentUpload></DocumentUpload>
+        <DocumentUpload documentService={ props.documentService }></DocumentUpload>
         <DocumentGrid documents={ documents }></DocumentGrid>
     </div>);
 }

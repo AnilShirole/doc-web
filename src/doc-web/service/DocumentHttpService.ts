@@ -19,4 +19,9 @@ export class DocumentHttpService {
         const response = await axios.get('http://localhost:3002/api/document');
         return response.data;
     }
+
+    public async uploadDocuments(): Promise<DocumentDomainModel[]> {
+        const response = await axios.post('http://localhost:3002/api/document');
+        return response.data;
+    }
 }

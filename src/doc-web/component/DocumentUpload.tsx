@@ -4,8 +4,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import FileUpload from "react-material-file-upload";
+import { DocumentService } from '../service/DocumentService';
 
-export const DocumentUpload = ():JSX.Element  => {
+interface DocumentProps {
+    documentService: DocumentService
+ }
+
+export const DocumentUpload = (props: DocumentProps):JSX.Element  => {
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -23,12 +28,14 @@ export const DocumentUpload = ():JSX.Element  => {
       const [open, setOpen] = useState(false);
       const handleOpen = () => setOpen(true);
       const handleClose = () => setOpen(false);
-  
-      const submitFile = () => {
 
-      };
       const [files, setFiles] = useState<File[]>([]);
       
+      const submitFile = () => {
+        console.log(files);
+        props.documentService.uploadDocuments();
+      };
+
       const allowedFileTypes = [".docx", ".xlsx", ".pdf"];
       const maxFileSize = 1000000;
 
