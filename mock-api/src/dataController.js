@@ -12,3 +12,7 @@ exports.getData = function (request, response) {
   var data = getJsonData(basePathToData, 'document.json');
   return response.send(data);
 };
+
+exports.uploadFile = function (request, response) {
+  return response.send({message: 'file upladed'});
+};

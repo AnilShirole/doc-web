@@ -20,8 +20,18 @@ export class DocumentHttpService {
         return response.data;
     }
 
-    public async uploadDocuments(): Promise<DocumentDomainModel[]> {
-        const response = await axios.post('http://localhost:3002/api/document');
+    public async uploadDocuments(documents: File[], onUploadProgress?: (progressEvent: any) =>void ): Promise<DocumentDomainModel[]> {
+        const data = new FormData();
+        documents.forEach(document => {
+            data.append('file', document);
+        });
+        const response = await axios.post(
+            'http://localhost:3002/api/document',
+            data,
+            {
+                onUploadProgress: onUploadProgress
+            }
+        );
         return response.data;
     }
 }

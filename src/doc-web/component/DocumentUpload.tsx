@@ -30,10 +30,18 @@ export const DocumentUpload = (props: DocumentProps):JSX.Element  => {
       const handleClose = () => setOpen(false);
 
       const [files, setFiles] = useState<File[]>([]);
-      
+
+      const onUploadProgress= (progressEvent: any) => {
+
+      }
+
       const submitFile = () => {
-        console.log(files);
-        props.documentService.uploadDocuments();
+        props.documentService.uploadDocuments(files, onUploadProgress)
+        .then(response => {
+            handleClose();
+        }).catch(error => {
+            console.warn("show error on UI", error);
+        });
       };
 
       const allowedFileTypes = [".docx", ".xlsx", ".pdf"];
