@@ -19,5 +19,5 @@ exports.uploadFile = function (request, response) {
 
 exports.download = function (request, response) {
   var filename = path.join(basePathToData, 'Jan 2023.pdf');
-  return response.download(filename);
+  return response.sendFile(filename);
 };

@@ -24,6 +24,7 @@ export const DocumentGrid = (props: DocumentProps):JSX.Element => {
     };
 
     const fileDownload = (blob: any, fileName: string) => {
+        alert("File getting downloaded..");
         const fileURL = window.URL.createObjectURL(blob);
         let alink = document.createElement('a');
         alink.href = fileURL;

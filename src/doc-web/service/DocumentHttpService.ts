@@ -37,7 +37,7 @@ export class DocumentHttpService {
     }
 
     public async downloadDocument(docWebId: String): Promise<File> {
-        const response = await axios.get(`${this.BASE_URL}/document/download`);
+        const response = await axios.get(`${this.BASE_URL}/document/download?docWebId=${docWebId}`);
         return response.data;
     }
 }
