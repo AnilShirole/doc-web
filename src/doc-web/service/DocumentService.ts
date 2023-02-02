@@ -24,4 +24,8 @@ export class DocumentService {
     public async uploadDocuments(documents: File[], onUploadProgress?: (progressEvent: any) =>void): Promise<DocumentDomainModel[]> {
         return await this.documentHttpService.uploadDocuments(documents, onUploadProgress);
     }
+
+    public async downloadDocument(docWebId: String): Promise<File> {
+       return this.documentHttpService.downloadDocument(docWebId);
+    }
 }

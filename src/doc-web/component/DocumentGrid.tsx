@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { GridOptions } from 'ag-grid-community';
+import { GridOptions, RowClickedEvent } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { DocumentDomainModel } from '../model/DocumentDomainModel';
+import { DocumentService } from '../service/DocumentService';
 
 interface DocumentProps {
+    documentService: DocumentService,
     documents: DocumentDomainModel[]
  }
 
@@ -21,12 +23,34 @@ export const DocumentGrid = (props: DocumentProps):JSX.Element => {
         ]
     };
 
+    const fileDownload = (blob: any, fileName: string) => {
+        const fileURL = window.URL.createObjectURL(blob);
+        let alink = document.createElement('a');
+        alink.href = fileURL;
+        alink.download = fileName;
+        alink.click();
+    }
+
+    const downloadDocument = (rowClickedEvent:RowClickedEvent) => {
+        const documentRow = rowClickedEvent.data;
+        props.documentService.downloadDocument(documentRow.docWebId).then(file => {
+            console.log(file);
+            fileDownload(file, "");
+        }).catch(error => {
+            console.warn(error);
+        });
+    }
+
     return (
         <div className= "ag-theme-alpine" style={{
             height: '500px',
             width: '1350px'
         }}>
-            <AgGridReact gridOptions={ documentGridOptions }  rowData= { props.documents }></AgGridReact>
+            <AgGridReact 
+                gridOptions={ documentGridOptions }  
+                rowData= { props.documents }
+                onRowClicked={downloadDocument}>    
+            </AgGridReact>
         </div>
     );
 }

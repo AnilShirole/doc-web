@@ -13,14 +13,19 @@ export const Document = (props: DocumentProps): JSX.Element =>{
 
     const [documents, setDocuments] = useState([]);
 
-    useEffect(()=> {
+    const getDocuments = () => {
         props.documentService.getAllDocuments().then(response => {
             setDocuments(response as any);
         });
+    }
+
+    useEffect(()=> {
+        getDocuments();
      }, []);
 
+
     return (<div>
-        <DocumentUpload documentService={ props.documentService }></DocumentUpload>
-        <DocumentGrid documents={ documents }></DocumentGrid>
+        <DocumentUpload documentService={ props.documentService } refreshDocs = { getDocuments }></DocumentUpload>
+        <DocumentGrid documentService={ props.documentService } documents={ documents }></DocumentGrid>
     </div>);
 }

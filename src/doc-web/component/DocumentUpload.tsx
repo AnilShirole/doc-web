@@ -6,11 +6,12 @@ import Modal from '@mui/material/Modal';
 import FileUpload from "react-material-file-upload";
 import { DocumentService } from '../service/DocumentService';
 
-interface DocumentProps {
-    documentService: DocumentService
+interface DocumentUploadProps {
+    documentService: DocumentService,
+    refreshDocs: () => void
  }
 
-export const DocumentUpload = (props: DocumentProps):JSX.Element  => {
+export const DocumentUpload = (props: DocumentUploadProps):JSX.Element  => {
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -39,6 +40,7 @@ export const DocumentUpload = (props: DocumentProps):JSX.Element  => {
         props.documentService.uploadDocuments(files, onUploadProgress)
         .then(response => {
             handleClose();
+            props.refreshDocs();
         }).catch(error => {
             console.warn("show error on UI", error);
         });

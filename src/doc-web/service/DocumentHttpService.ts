@@ -3,6 +3,7 @@ import { DocumentDomainModel } from "../model/DocumentDomainModel";
 
 export class DocumentHttpService {
     private static instance:DocumentHttpService;
+    private BASE_URL = 'http://localhost:3002/api';
 
     private constructor() {
     }
@@ -16,7 +17,7 @@ export class DocumentHttpService {
     }
 
     public async getAllDocuments(): Promise<DocumentDomainModel[]> {
-        const response = await axios.get('http://localhost:3002/api/document');
+        const response = await axios.get(`${this.BASE_URL}/document`);
         return response.data;
     }
 
@@ -26,12 +27,17 @@ export class DocumentHttpService {
             data.append('file', document);
         });
         const response = await axios.post(
-            'http://localhost:3002/api/document',
+            `${this.BASE_URL}/document`,
             data,
             {
                 onUploadProgress: onUploadProgress
             }
         );
+        return response.data;
+    }
+
+    public async downloadDocument(docWebId: String): Promise<File> {
+        const response = await axios.get(`${this.BASE_URL}/document/download`);
         return response.data;
     }
 }
